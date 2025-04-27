@@ -1,0 +1,43 @@
+﻿@model List<MvcRicardoNogales.Models.PartidoDTO>
+
+@{
+    var grupos = Model.GroupBy(p => p.NombreGrupo).OrderBy(g => g.Key);
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4">Partidos por Grupo</h2>
+
+    @foreach (var grupo in grupos)
+    {
+        <h3 class="text-primary">@grupo.Key</h3> <!-- Nombre del Grupo: Grupo A, Grupo B, etc -->
+
+        <div class="row mb-5">
+            @foreach (var partido in grupo)
+            {
+                var estado = partido.FechaHora > DateTime.Now ? "Programado" : "Finalizado";
+                var estadoColor = partido.FechaHora > DateTime.Now ? "primary" : "danger";
+
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm border-@estadoColor">
+                        <div class="card-body">
+                            <h5 class="card-title text-center">
+                                <strong>@partido.NombreEquipoLocal</strong>
+                                vs
+                                <strong>@partido.NombreEquipoVisitante</strong>
+                            </h5>
+                            <p class="card-text text-center">
+                                <span class="fs-4">@partido.GolesLocal - @partido.GolesVisitante</span>
+                            </p>
+                            <p class="card-text text-center">
+                                <span class="badge bg-@estadoColor">@estado</span>
+                            </p>
+                            <p class="card-text text-center text-muted">
+                                @partido.FechaHora.ToString("dd/MM/yyyy HH:mm")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
