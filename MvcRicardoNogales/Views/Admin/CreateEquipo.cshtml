@@ -1,0 +1,26 @@
+﻿@model MvcRicardoNogales.Models.EquipoDTO
+
+<div class="container mt-4">
+    <h2>Añadir Nuevo Equipo</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">
+            @ViewBag.Error
+        </div>
+    }
+
+    <form asp-action="CreateEquipo" method="post">
+        <div class="form-group mb-3">
+            <label>Nombre del Equipo</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>URL del Escudo (opcional)</label>
+            <input asp-for="Escudo" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear Equipo</button>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+﻿@model MvcRicardoNogales.Models.JugadorDTO
+
+<div class="container mt-4">
+    <h2>Añadir Nuevo Jugador</h2>
+
+    @if (ViewBag.Error != null)
+    {
+            <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form asp-action="CreateJugador" method="post">
+        <div class="form-group mb-3">
+            <label>Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Apellidos</label>
+            <input asp-for="Apellidos" class="form-control" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Dorsal</label>
+            <input asp-for="Dorsal" class="form-control" />
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Equipo</label>
+            <select asp-for="IdEquipo" class="form-control">
+                <option value="">Seleccione un equipo</option>
+                @foreach (var equipo in ViewBag.Equipos)
+                {
+                        <option value="@equipo.IdEquipo">@equipo.Nombre</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear Jugador</button>
+    </form>
+</div>

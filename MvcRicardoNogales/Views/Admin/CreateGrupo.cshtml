@@ -1,0 +1,19 @@
+﻿@model MvcRicardoNogales.Models.GrupoDTO
+
+<div class="container mt-4">
+    <h2>Crear Nuevo Grupo</h2>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger">@ViewBag.Error</div>
+    }
+
+    <form asp-action="CreateGrupo" method="post">
+        <div class="form-group mb-3">
+            <label>Nombre del Grupo</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear Grupo</button>
+    </form>
+</div>

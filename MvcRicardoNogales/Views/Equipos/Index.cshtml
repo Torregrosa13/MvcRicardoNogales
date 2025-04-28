@@ -1,0 +1,23 @@
+﻿@model List<MvcRicardoNogales.Models.EquipoDTO>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Equipos</h2>
+
+    <div class="row">
+        @foreach (var equipo in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        @if (!string.IsNullOrEmpty(equipo.Escudo))
+                        {
+                            <img src="@equipo.Escudo" class="img-fluid mb-3" style="max-height: 100px;" alt="Escudo del equipo" />
+                        }
+                        <h5 class="card-title">@equipo.Nombre</h5>
+                        <a class="btn btn-primary mt-2" asp-action="Details" asp-route-id="@equipo.IdEquipo">Ver Detalles</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

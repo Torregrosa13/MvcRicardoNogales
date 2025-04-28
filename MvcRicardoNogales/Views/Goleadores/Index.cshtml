@@ -1,0 +1,34 @@
+﻿@model List<MvcRicardoNogales.Models.GoleadorDTO>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Ranking de Goleadores</h2>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Posición</th>
+                <th>Jugador</th>
+                <th>Dorsal</th>
+                <th>Equipo</th>
+                <th>Goles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                var medal = "";
+                if (i == 0) medal = "🥇";
+                else if (i == 1) medal = "🥈";
+                else if (i == 2) medal = "🥉";
+
+                <tr>
+                    <td>@(i + 1) @Html.Raw(medal)</td>
+                    <td>@Model[i].NombreJugador</td>
+                    <td>@Model[i].Dorsal</td>
+                    <td>@Model[i].NombreEquipo</td>
+                    <td>@Model[i].Goles</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
