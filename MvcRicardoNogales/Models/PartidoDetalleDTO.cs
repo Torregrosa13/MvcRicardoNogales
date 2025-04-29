@@ -9,7 +9,7 @@
         public int? GolesVisitante { get; set; }
         public DateTime FechaHora { get; set; }
         public List<GolDTO> Goleadores { get; set; }
-        public List<TarjetaDTO> Tarjetas { get; set; }
+        public List<TarjetaPartidoDTO> Tarjetas { get; set; }
     }
 
     public class GolDTO
@@ -18,7 +18,7 @@
         public int Minuto { get; set; }
     }
 
-    public class TarjetaDTO
+    public class TarjetaPartidoDTO
     {
         public string NombreJugador { get; set; }
         public string TipoTarjeta { get; set; }

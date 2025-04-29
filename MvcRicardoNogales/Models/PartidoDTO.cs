@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MvcRicardoNogales.Models
+﻿namespace MvcRicardoNogales.Models
 {
     public class PartidoDTO
     {
@@ -12,5 +10,9 @@ namespace MvcRicardoNogales.Models
         public string Fase { get; set; }
         public DateTime FechaHora { get; set; }
         public string NombreGrupo { get; set; }
+        public int IdEquipoLocal { get; set; }
+        public int IdEquipoVisitante { get; set; }
+
+        public string NombrePartido => $"{NombreEquipoLocal} vs {NombreEquipoVisitante}";
     }
 }

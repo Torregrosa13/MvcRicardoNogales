@@ -1,0 +1,81 @@
+﻿@model MvcRicardoNogales.Models.ActualizarResultadoViewModel
+
+<h2>Actualizar Resultado</h2>
+
+<form asp-action="CargarDatosPartido" method="post">
+    <div class="form-group">
+        <label>Selecciona un partido:</label>
+        <select asp-for="IdPartidoSeleccionado" asp-items="@(new SelectList(Model.PartidosDisponibles, "IdPartido", "NombrePartido"))" class="form-control"></select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Cargar Datos del Partido</button>
+</form>
+
+@if (Model.IdPartido > 0)
+{
+    <hr />
+    <form asp-action="ActualizarResultadoConfirmado" method="post">
+        <input type="hidden" asp-for="IdPartido" />
+
+        <h4>@Model.NombreEquipoLocal vs @Model.NombreEquipoVisitante</h4>
+
+        <div class="form-group">
+            <label>Goles @Model.NombreEquipoLocal:</label>
+            <input asp-for="GolesLocal" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Goles @Model.NombreEquipoVisitante:</label>
+            <input asp-for="GolesVisitante" class="form-control" />
+        </div>
+
+        <div class="form-group">
+            <label>Goleadores @Model.NombreEquipoLocal:</label>
+            <select asp-for="IdsGoleadoresLocal" asp-items="@(new SelectList(Model.JugadoresLocal, "IdJugador", "NombreConDorsal"))" multiple class="form-control"></select>
+        </div>
+
+        <div class="form-group">
+            <label>Goleadores @Model.NombreEquipoVisitante:</label>
+            <select asp-for="IdsGoleadoresVisitante" asp-items="@(new SelectList(Model.JugadoresVisitante, "IdJugador", "NombreConDorsal"))" multiple class="form-control"></select>
+        </div>
+
+        <hr />
+        <h4>Tarjetas</h4>
+        <div id="tarjetas-container"></div>
+
+        <button type="button" class="btn btn-secondary mt-2" onclick="agregarTarjeta()">Añadir Tarjeta</button>
+
+        <button type="submit" class="btn btn-success mt-4">Actualizar Resultado</button>
+    </form>
+}
+
+@section Scripts {
+    <script>
+        function agregarTarjeta() {
+            var container = document.getElementById("tarjetas-container");
+
+            var tarjetaDiv = document.createElement("div");
+            tarjetaDiv.classList.add("card", "p-3", "mb-2");
+
+            tarjetaDiv.innerHTML = `
+                <div class="mb-2">
+                    <label>ID Jugador:</label>
+                    <input type="number" name="Tarjetas[].IdJugador" class="form-control" required />
+                </div>
+                <div class="mb-2">
+                    <label>Tipo de tarjeta:</label>
+                    <select name="Tarjetas[].TipoTarjeta" class="form-control" required>
+                        <option value="Amarilla">Amarilla</option>
+                        <option value="Roja">Roja</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label>ID Equipo:</label>
+                    <input type="number" name="Tarjetas[].IdEquipo" class="form-control" required />
+                </div>
+                <button type="button" onclick="this.parentElement.remove()" class="btn btn-danger">Eliminar</button>
+            `;
+
+            container.appendChild(tarjetaDiv);
+        }
+    </script>
+}
