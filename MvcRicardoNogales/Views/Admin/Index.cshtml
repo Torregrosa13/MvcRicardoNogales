@@ -1,10 +1,90 @@
-﻿<div class="container mt-4">
-    <h2>Panel de Administración</h2>
-    <ul class="list-group mt-4">
-        <li class="list-group-item"><a href="@Url.Action("CreateEquipo", "Admin")">Añadir Equipo</a></li>
-        <li class="list-group-item"><a href="@Url.Action("CreateJugador", "Admin")">Añadir Jugador</a></li>
-        <li class="list-group-item"><a href="@Url.Action("CreateGrupo", "Admin")">Crear Grupo</a></li>
-        <li class="list-group-item"><a href="@Url.Action("AsignarEquipoGrupo", "Admin")">Asignar Equipo a Grupo</a></li>
-        <li class="list-group-item"><a href="@Url.Action("ActualizarResultado", "Admin")">Actualizar Resultado de Partido</a></li>
-    </ul>
+﻿@{
+    ViewData["Title"] = "Panel de Administración";
+}
+
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card bg-light">
+                <div class="card-body text-center">
+                    <h2 class="card-title">Panel de Administración</h2>
+                    <p class="text-muted">Gestiona equipos, jugadores, grupos y resultados del Maratón Ricardo Nogales</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-primary shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Equipos</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text">Administra los equipos participantes en la competición.</p>
+                    <a href="@Url.Action("CreateEquipo", "Admin")" class="btn btn-outline-primary mt-auto">
+                        <i class="bi bi-plus-circle me-2"></i>Añadir Equipo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-success shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Jugadores</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text">Gestiona los jugadores de cada equipo participante.</p>
+                    <a href="@Url.Action("CreateJugador", "Admin")" class="btn btn-outline-success mt-auto">
+                        <i class="bi bi-person-plus me-2"></i>Añadir Jugador
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 border-info shadow-sm">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0">Grupos</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text">Crea y administra los grupos de la competición.</p>
+                    <a href="@Url.Action("CreateGrupo", "Admin")" class="btn btn-outline-info mt-auto">
+                        <i class="bi bi-diagram-3 me-2"></i>Crear Grupo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 border-warning shadow-sm">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">Asignaciones</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text">Asigna equipos a los grupos creados para comenzar la fase de grupos.</p>
+                    <p class="text-muted small">Al completar un grupo con 3 equipos, se crearán automáticamente los partidos.</p>
+                    <a href="@Url.Action("AsignarEquipoGrupo", "Admin")" class="btn btn-outline-warning mt-auto">
+                        <i class="bi bi-arrows-angle-contract me-2"></i>Asignar Equipo a Grupo
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card h-100 border-danger shadow-sm">
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">Resultados</h5>
+                </div>
+                <div class="card-body d-flex flex-column">
+                    <p class="card-text">Actualiza los resultados de los partidos incluyendo marcadores, goleadores y tarjetas.</p>
+                    <p class="text-muted small">Los resultados actualizarán automáticamente las estadísticas y clasificaciones.</p>
+                    <a href="@Url.Action("ActualizarResultado", "Admin")" class="btn btn-outline-danger mt-auto">
+                        <i class="bi bi-pencil-square me-2"></i>Actualizar Resultado de Partido
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

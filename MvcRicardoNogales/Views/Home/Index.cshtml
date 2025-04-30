@@ -1,43 +1,125 @@
 ﻿@model List<MvcRicardoNogales.Models.PartidoDTO>
-
 @{
     var grupos = Model.GroupBy(p => p.NombreGrupo).OrderBy(g => g.Key);
 }
 
-<div class="container mt-4">
-    <h2 class="mb-4">Partidos por Grupo</h2>
-
-    @foreach (var grupo in grupos)
-    {
-        <h3 class="text-primary">@grupo.Key</h3> <!-- Nombre del Grupo: Grupo A, Grupo B, etc -->
-
+<div class="container-fluid py-5" style="background-color: #f8f9fa;">
+    <div class="container">
         <div class="row mb-5">
-            @foreach (var partido in grupo)
-            {
-                var estado = partido.FechaHora > DateTime.Now ? "Programado" : "Finalizado";
-                var estadoColor = partido.FechaHora > DateTime.Now ? "primary" : "danger";
+            <div class="col-12 text-center">
+                <h2 class="display-5 fw-bold mb-1">Partidos por Grupo</h2>
+                <div class="d-inline-block position-relative">
+                    <hr class="w-100" style="height: 4px; opacity: 1; background-color: #0d6efd;" />
+                </div>
+                <p class="lead text-muted">Calendario y resultados del torneo</p>
+            </div>
+        </div>
 
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm border-@estadoColor">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">
-                                <strong>@partido.NombreEquipoLocal</strong>
-                                vs
-                                <strong>@partido.NombreEquipoVisitante</strong>
-                            </h5>
-                            <p class="card-text text-center">
-                                <span class="fs-4">@partido.GolesLocal - @partido.GolesVisitante</span>
-                            </p>
-                            <p class="card-text text-center">
-                                <span class="badge bg-@estadoColor">@estado</span>
-                            </p>
-                            <p class="card-text text-center text-muted">
-                                @partido.FechaHora.ToString("dd/MM/yyyy HH:mm")
-                            </p>
+        <div class="row">
+            @foreach (var grupo in grupos)
+            {
+                <div class="col-12 mb-5">
+                    <div class="card border-0 shadow">
+                        <div class="card-header p-3" style="background: linear-gradient(135deg, #0d6efd, #0a58ca);">
+                            <div class="d-flex align-items-center">
+                                <div class="bg-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px;">
+                                    <span class="fw-bold text-primary">@grupo.Key.Substring(grupo.Key.Length - 1)</span>
+                                </div>
+                                <h3 class="m-0 text-white">Grupo @grupo.Key.Substring(grupo.Key.Length - 1)</h3>
+                            </div>
+                        </div>
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                @foreach (var partido in grupo)
+                                {
+                                    var isProgramado = partido.FechaHora > DateTime.Now;
+                                    var estado = isProgramado ? "Programado" : "Finalizado";
+                                    var estadoColor = isProgramado ? "primary" : "danger";
+                                    var bgGradient = isProgramado ? "linear-gradient(135deg, #e6f2ff, #ffffff)" : "linear-gradient(135deg, #fff5f5, #ffffff)";
+                                    var borderColor = isProgramado ? "#0d6efd" : "#dc3545";
+
+                                    <div class="col-md-6 col-lg-4">
+                                        <div class="card h-100 shadow-sm position-relative" style="border: 2px solid @borderColor; background: @bgGradient;">
+                                            @if (!isProgramado)
+                                            {
+                                                <div class="position-absolute" style="top: -10px; right: -10px;">
+                                                    <span class="badge rounded-pill bg-danger px-3 py-2 shadow-sm">Finalizado</span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="position-absolute" style="top: -10px; right: -10px;">
+                                                    <span class="badge rounded-pill bg-primary px-3 py-2 shadow-sm">Programado</span>
+                                                </div>
+                                            }
+
+                                            <div class="card-body p-4">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <div class="d-flex align-items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-event text-@estadoColor me-2" viewBox="0 0 16 16">
+                                                            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z" />
+                                                            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                                                        </svg>
+                                                        <span class="fw-medium">@partido.FechaHora.ToString("dd/MM/yyyy")</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock text-@estadoColor me-2" viewBox="0 0 16 16">
+                                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" />
+                                                            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" />
+                                                        </svg>
+                                                        <span class="fw-medium">@partido.FechaHora.ToString("HH:mm")</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="text-center my-4 py-3" style="background-color: rgba(255,255,255,0.7); border-radius: 10px;">
+                                                    <div class="row align-items-center">
+                                                        <div class="col-5 text-end">
+                                                            <h5 class="fw-bold mb-0">@partido.NombreEquipoLocal</h5>
+                                                        </div>
+                                                        <div class="col-2 px-0">
+                                                            <div class="px-2 py-1 rounded-circle d-inline-flex justify-content-center align-items-center" style="background-color: rgba(0,0,0,0.05); width: 40px; height: 40px;">
+                                                                <span class="fw-bold text-muted">VS</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-5 text-start">
+                                                            <h5 class="fw-bold mb-0">@partido.NombreEquipoVisitante</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="text-center mb-3">
+                                                    <div class="d-inline-flex align-items-center justify-content-center py-2 px-4"
+                                                         style="background-color: @(isProgramado ? "#e6f2ff" : "#fff5f5");
+                                                                border: 2px solid @borderColor;
+                                                                border-radius: 12px;
+                                                                min-width: 120px;">
+                                                        <span class="display-6 fw-bold text-@estadoColor">@partido.GolesLocal</span>
+                                                        <span class="mx-3 h4 text-muted mb-0">-</span>
+                                                        <span class="display-6 fw-bold text-@estadoColor">@partido.GolesVisitante</span>
+                                                    </div>
+                                                </div>
+
+                                                <div class="text-center">
+                                                    <span class="text-muted small">
+                                                        @if (isProgramado)
+                                                        {
+                                                            <span>Próximo encuentro</span>
+                                                        }
+                                                        else
+                                                        {
+                                                            <span>Resultado final</span>
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             }
         </div>
-    }
+    </div>
 </div>
